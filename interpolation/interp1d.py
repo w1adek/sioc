@@ -15,7 +15,7 @@ current_function = f1
 
 """Interpolation kernels"""
 def h1(x):
-    return np.where((x > 0) & (x < 1), 1, 0)
+    return np.where((x >= 0) & (x < 1), 1, 0)
 def h2(x):
     return np.where((x >= -0.5) & (x < 0.5), 1, 0)
 def h3(x):
@@ -46,7 +46,7 @@ interp, = ax.plot(x_interp, y_interp, '-g', label='interpolation')
 plt.legend(loc=(1.06, 0))
 
 mse = metrics.mean_squared_error(current_function(x_interp), y_interp)
-mse_text = plt.text(4.2, -0.6, f'MSE: {mse:.4f}%')
+mse_text = plt.text(4.2, -0.6, f'MSE: {mse:.4f}')
 
 """Slider that updates values on sample axes"""
 x_samples_slider = Slider(
@@ -81,7 +81,7 @@ def update(val):
     interp.set_data(x_interp, y_interp)
     
     mse = metrics.mean_squared_error(current_function(x_interp), y_interp)
-    mse_text.set_text(f'MSE: {mse:.4f}%')
+    mse_text.set_text(f'MSE: {mse:.4f}')
     
     fig.canvas.draw()
     
